@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="/stylesheets/style.css"></link>
+  </head>
+  <body>
+    <h1>Contentful Manager</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Content Type</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i = 0; i < contentTypes.length; i++) { %>
+        <tr>
+          <td><%= contentTypes[i].name %></td>
+          <td>
+            <button name="delete-entries" value="<%= contentTypes[i].sys.id %>">Delete Entries</button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('table button').on('click', function(evt) {
+        evt.preventDefault();
+
+        $.ajax({
+          url: '/actions/' + $(this).attr('name'),
+          context: document.body,
+          type: 'POST',
+          data: {contentType: $(this).attr('value')}
+        }).done(function() {
+          alert('done');
+        })
+      })
+    });
+  </script>
+</html>
