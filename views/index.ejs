@@ -31,9 +31,10 @@
         evt.preventDefault();
 
         $.ajax({
-          url: '/actions/' + $(this).attr('name'),
-          context: document.body,
-          type: 'POST',
+          url: '/contents/actions/' + $(this).attr('name') + '/' + $(this).attr('value'),
+          type: "POST",
+          contentType: "application/json",
+          dataType:'json',
           data: {contentType: $(this).attr('value')}
         }).done(function() {
           alert('done');
